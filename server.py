@@ -7,10 +7,10 @@ from flask import Flask, Response, jsonify, request
 
 app = Flask(__name__)
 
-@app.route('/<path:subpath>')
+@app.route('<path:subpath>')
 def index(subpath):
     data = []
-    data.append('path=/{}'.format(subpath))
+    data.append('path={}'.format(subpath))
     data.append('request.remote_addr={}'.format(request.remote_addr))
     data.append('')
     for k in sorted(os.environ):
