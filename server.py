@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import socket
 
 from flask import Flask, Response, jsonify, request
@@ -10,11 +9,11 @@ app = Flask(__name__)
 @app.route('/<path:subpath>')
 def multi(subpath):
     data = []
-    data.append('path=/{}'.format(subpath))
-    data.append('request.remote_addr={}'.format(request.remote_addr))
+    data.append('Connection from {}'.format(request.remote_addr))
+    data.append('{} {}'.format(request.method, request.full_path))
     data.append('')
-    for k in sorted(os.environ):
-        data.append('{}={}'.format(k, os.environ[k]))
+    for k, v in request.headers.items():
+        data.append('{}: {}'.format(k, v))
     return Response('\n'.join(data) + '\n', mimetype='text/plain')
 
 @app.route('/')
