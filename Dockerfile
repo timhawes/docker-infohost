@@ -1,3 +1,12 @@
-FROM python:3-onbuild
-CMD ["python", "server.py"]
+FROM python:3
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD [ "python", "./server.py" ]
+
 EXPOSE 8080
