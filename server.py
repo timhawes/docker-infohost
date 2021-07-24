@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os
+import platform
 import socket
 
 from flask import Flask, Response, jsonify, request
@@ -9,14 +9,16 @@ app = Flask(__name__)
 
 @app.route('/<path:subpath>')
 def multi(subpath):
-    uname = os.uname()
+    uname = platform.uname()
     data = []
-    data.append('sysname={} nodename={} release={} version={}'.format(
+    data.append('sysname={} node={} release={} version={} machine={}'.format(
         uname.sysname,
-        uname.nodename,
+        uname.node,
         uname.release,
-        uname.version
+        uname.version,
+        uname.machine
     ))
+    data.append('fqdn={}'.format(socket.getfqdn()))
     data.append('connection from {}'.format(request.remote_addr))
     data.append('')
     data.append('{} {}'.format(request.method, request.full_path))
