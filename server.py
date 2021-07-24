@@ -11,8 +11,8 @@ app = Flask(__name__)
 def multi(subpath):
     uname = platform.uname()
     data = []
-    data.append('sysname={} node={} release={} version={} machine={}'.format(
-        uname.sysname,
+    data.append('system={} node={} release={} version={} machine={}'.format(
+        uname.system,
         uname.node,
         uname.release,
         uname.version,
